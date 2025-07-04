@@ -37,10 +37,9 @@ steps:
  
 - task: NuGetAuthenticate@1
 
-- task: NuGetCommand@2
-  displayName: 'Publish NuGet package'
+- task: DotNetCoreCLI@2
   inputs:
-    command: push
-    feedPublish: '$(System.TeamProject)/Tailspin.SpaceGame.Web.Models'
-    allowPackageConflicts: true
-  condition: succeeded()
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    nuGetFeedType: 'internal'
+    vstsFeed: 'Tailspin.SpaceGame.Web.Models'
